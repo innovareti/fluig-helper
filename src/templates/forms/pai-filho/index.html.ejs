@@ -1,0 +1,138 @@
+<html>
+
+<head>
+    <link type="text/css" rel="stylesheet" href="/style-guide/css/fluig-style-guide.min.css" />
+    <script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+    <script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+    <script type="text/javascript" src="/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="resources/css/style.css">
+</head>
+
+<body>
+    <div class="fluig-style-guide">
+        <form name="form" role="form">
+
+            <div class='panel panel-primary'>
+                <div class='panel-heading'>
+                    <h3 class='panel-title'><i class='fluigicon fluigicon-user icon-sm'></i> Dados do Solicitante</h3>
+                </div>
+                <div class='panel-body'>
+                    <div class='col-md-4'>
+                        <div class='form-group'>
+                            <label for='idProtheus'>Id Protheus</label>
+                            <input type='text' class='form-control' id='idProtheus' name='idProtheus'>
+                        </div>
+                    </div>
+                    <div class='col-md-4'>
+                        <div class='form-group'>
+                            <label for='solicitante'>Solicitante</label>
+                            <input type="text" class="form-control" id="solicitante" name="solicitante">
+                        </div>
+                    </div>
+                    <div class='col-md-4'>
+                        <div class='form-group'>
+                            <label for='grupoAprovadores'>Grupo Aprovadores</label>
+                            <input type="text" class="form-control" id="grupoAprovadores" name="grupoAprovadores">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ======== Pai e Filho Produtos ======== -->
+            <div class='panel panel-primary'>
+                <div class='panel-heading'>
+                    <h3 class='panel-title'><i class="fluigicon fluigicon-app icon-sm"></i> Produtos</h3>
+                </div>
+                <div class='panel-body'>
+                    <div class="row fs-md-margin-bottom">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-primary btn-pai-filho" onclick="addFilho(this)"
+                                name="btnAddFilho" id="btnAddFilho">Adicionar</button>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <!-- Tabela pai filho original -->
+                            <table class="table table-bordered centered-cell" tablename="paiFilho" nodeletebutton="true"
+                                noaddbutton=true>
+
+                                <thead>
+                                    <tr></tr>
+                                </thead>
+
+                                <tr>
+                                    <td class="delete-item col-md-1">
+                                        <i class="fluigicon fluigicon-trash icon-md" onclick="removeFilho(this)"
+                                            name="btnExcluir" id="btnExcluir">
+                                        </i>
+                                    </td>
+                                    <td class="fs-xl-padding">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class='form-group'>
+                                                    <div data-toggle="tooltip" title="Insira um Produto">
+                                                        <label for="Produto">
+                                                            Produto</label>
+                                                        <input type="text" class="form-control" name="Produto"
+                                                            id="Produto">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class='form-group'>
+                                                    <div data-toggle="tooltip" title="Insira a quantidade">
+                                                        <label for="quantidade">
+                                                            Quantidade
+                                                        </label>
+
+                                                        <input type="text" class="form-control" name="quantidade"
+                                                            id="quantidade">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class='form-group'>
+                                                    <div data-toggle="tooltip" title="Insira o preço unitário">
+                                                        <label for="precoUnitario">
+                                                            Preço unitário
+                                                        </label>
+
+                                                        <input type="text" class="form-control" name="precoUnitario"
+															id="precoUnitario">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class='form-group'>
+                                                    <div data-toggle="tooltip" title="Valor total do produto">
+                                                        <label for="contaContabil">
+                                                            Valor Total
+                                                        </label>
+
+                                                        <input type="text" class="form-control" name="valorTotal"
+                                                        id="valorTotal">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- Necessário para utilzação de datasets -->
+    <script type="text/javascript" src="/webdesk/vcXMLRPC.js"></script>
+    <!-- Main Script -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>

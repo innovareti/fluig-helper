@@ -1,0 +1,70 @@
+<html>
+
+<head>
+	<link type="text/css" rel="stylesheet" href="/style-guide/css/fluig-style-guide.min.css" />
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+	<script type="text/javascript" src="/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+	<div class="fluig-style-guide">
+		<form name="form" role="form">
+			<input type="hidden" name="atividade" id="atividade">
+			<input type="hidden" name="numSolicitacao" id="numSolicitacao"> <!-- Add hAPI.setCardValue("numSolicitacao", processId) em afterProcessCreate ()  -->
+			
+			<div class='panel panel-primary'>
+				<div class='panel-heading'>
+					<h3 class='panel-title'><i class='fluigicon fluigicon-user icon-sm'></i> Dados do Solicitante</h3>
+				</div>
+				<div class='panel-body'>
+					<div class='col-md-4'>
+						<div class='form-group'>
+							<label for='solicitante'>Solicitante</label>
+							<input type='text' class='form-control' id='solicitante' name='solicitante' readonly>
+						</div>
+					</div>
+					<div class='col-md-4'>
+						<div class='form-group'>
+							<label for='dataSolicitacao'>Data da solicitação</label>
+							<input type="date" class="form-control" id="dataSolicitacao" name="dataSolicitacao" readonly>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="aprovador"> Aprovador</label>
+							<input type="zoom" id="aprovador" name="aprovador" data-zoom="{
+								'displayKey':'colleagueName',
+								'datasetId':'colleague',
+								'maximumSelectionLength':'2',
+								'placeholder':'Aprovador',
+								'fields':[
+									{
+										'field':'colleagueId',
+										'label':'ID'
+									},{
+										'field':'colleagueName',
+										'label':'Nome',
+										'standard':'true'
+									}
+								]
+							}">
+						</div>
+					</div>
+					
+				</div>
+            </div>
+            
+
+		</form>
+	</div>
+
+    <!-- Necessário para utilzação de datasets -->
+    <script type="text/javascript" src="/webdesk/vcXMLRPC.js"></script>
+    <!-- Main Script -->
+	<script src="js/main.js"></script>
+</body>
+
+</html>

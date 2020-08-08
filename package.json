@@ -1,0 +1,45 @@
+{
+  "name": "fluig-helper",
+  "version": "0.0.1",
+  "description": "fluig-helper CLI",
+  "bin": {
+    "fluig-helper": "bin/fluig-helper"
+  },
+  "scripts": {
+    "format": "prettier --write **/*.{js,json} && standard --fix",
+    "lint": "standard",
+    "test": "jest",
+    "watch": "jest --watch",
+    "snapupdate": "jest --updateSnapshot",
+    "coverage": "jest --coverage"
+  },
+  "files": [
+    "src",
+    "LICENSE",
+    "readme.md",
+    "docs",
+    "bin"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "cli-progress": "^3.8.2",
+    "gluegun": "latest"
+  },
+  "devDependencies": {
+    "standard": "^12.0.1",
+    "prettier": "^1.12.1",
+    "jest": "^24.1.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ]
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
+  }
+}

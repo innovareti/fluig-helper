@@ -1,0 +1,114 @@
+function defineStructure() {
+}
+function onSync(lastSyncDate) {
+
+}
+function createDataset(fields, constraints, sortFields) {
+    var dataset = DatasetBuilder.newDataset();
+    // nome das colunas desse dataset
+    <% for (colunm in props.colunmsProtheus) { %>
+    dataset.addColumn("<%= props.colunmsProtheus[colunm] %>")<% } %>    
+	
+	try{
+	    
+        var adicionarConstraintAqui = null
+        if (constraints != null) {
+            for (var i = 0; i < constraints.length; i++) {
+                <% for (colunm in props.colunmsProtheus) { %>
+                if (constraints[i].fieldName == "<%= props.colunmsProtheus[colunm] %>") {
+                    <%= props.colunmsProtheus[colunm] %>Constraint = constraints[i].initialValue
+                }<% } %> 
+
+            }
+        }
+	    
+	    var properties = {};
+        properties["disable.chunking"] = "false";
+        properties["log.soap.messages"] = "true";
+        properties["receive.timeout"] = "1800000";
+	    
+	    log.info('--- ENTREI NO TRY ---');
+        
+        var periodicService = ServiceManager.getService('wsEstapar'); // Serviço
+        var serviceHelper = periodicService.getBean();
+        var serviceLocator = periodicService.instantiate('br.com.estapar.WSESTAPAR');
+        var service = serviceLocator.getWSESTAPARSOAP();
+        
+        var empresa = null
+        if(empresaConstraints != null){
+            empresa = empresaConstraints
+            
+        } else {
+            empresa = "01"
+            
+        }
+        var filial = null
+        if(filialConstraints != null){
+            filial  = filialConstraints
+            
+        } else {
+            filial  = "0010001"
+            
+        }
+        var tabela  = "<%= props.tableName %>";
+        var campo   = "<% for (colunm in props.colunmsProtheus) { if (colunm == (props.colunmsProtheus.length - 1)) { %><%= props.colunmsProtheus[colunm] %><% } else { %><%= props.colunmsProtheus[colunm] + ', '  %><% } } %>";
+        var where   = "";
+        if (adicionarConstraintAqui != null) {
+            where   += "CAMPO_PROTHEUS = '" + adicionarConstraintAqui + "'";
+        }
+        
+        log.info("SQL QUERY - CONSULTA PROTHEUS - WHERE => " + where)
+        
+        var orderby = "";
+        var token   = "Innovare";
+        
+        // Invoca o serviço        
+        var customClient = serviceHelper.getCustomClient(service, "br.com.estapar.WSESTAPARSOAP", properties);  
+        
+        log.info('--- INICIO RETORNO --- ');
+        var retorno = customClient.zoomgjson(empresa,filial,tabela,campo,where,orderby,token);
+        log.info('--- FIM RETORNO --- ' + retorno);
+        
+        if(retorno != '{"ZOOM":]}'){
+        	var json  = JSON.parse(retorno);	   	
+            var lista = [];
+            var oldLinha = 0;
+            log.info('--- JSON LENGTH --- ' + json.ZOOM.length); 
+            for(var i = 0; i <= json.ZOOM.length; i++){
+                if(json.ZOOM[i] != undefined){
+                    var linha = parseInt(json.ZOOM[i].Linha)
+                    if(oldLinha == 0 || oldLinha != linha){
+                        if(oldLinha != 0){
+                            lista.push(item)
+                        }
+                        oldLinha = linha   
+                        var item = {}
+                        item[json.ZOOM[i].Campo.trim()] = json.ZOOM[i].Valor.trim();
+                    } else {
+                        item[json.ZOOM[i].Campo.trim()] = json.ZOOM[i].Valor.trim();
+                    }
+                }
+            }
+            lista.push(item)
+            log.info('--- ARRAY ITEM --- ' + item);
+            log.info('--- LISTA LENGTH --- ' + lista.length); 
+            for(var j = 0; j < lista.length; j++){
+                dataset.addRow([
+                    <% for (colunm in props.colunmsProtheus) { %>
+                    <%= 'lista[j].' + props.colunmsProtheus[colunm] + ', ' %><% } %>
+                    
+                ]);
+            }
+        }
+        
+    }
+    catch(err){
+        dataset.addRow([err.message + "at line" + err.lineNumber]);
+        log.info('ENTREI NO CATCH: ' + err.message + "at line " + err.lineNumber );
+    }
+    
+    return dataset;
+}
+function onMobileSync(user) {
+
+}
