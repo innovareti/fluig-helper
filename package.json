@@ -41,5 +41,23 @@
   "prettier": {
     "semi": false,
     "singleQuote": true
-  }
+  },
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/innovareti/fluig-helper.git"
+  },
+  "keywords": [
+    "fluig",
+    "cli",
+    "helper"
+  ],
+  "author": "AsafeToschi",
+  "bugs": {
+    "url": "https://github.com/innovareti/fluig-helper/issues"
+  },
+  "homepage": "https://github.com/innovareti/fluig-helper#readme"
 }
